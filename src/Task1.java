@@ -9,7 +9,8 @@ public class Task1 {
         x.add(14);
         x.add(15);
         x.remove(11);
-        x.remove(12);
+        x.remove(14);
+        x.remove(15);
         System.out.println(x.contains(11));
         System.out.println(x.contains(13));
         System.out.println(Arrays.toString(x.arr));
