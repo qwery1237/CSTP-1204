@@ -1,131 +1,81 @@
 import java.io.*;
 import java.util.*;
-
-/**
- * This is the main class for the Tour de France program. If has the main( )
- * method that reads biker information from a file and then performs some
- * computations with the data.
- *
- * @author Sathish Gopalakrishnan
- *
- */
 public class TdFMain {
 
-    /**
-     * This is the main( ) method.
-     *
-     * @param args
-     *            We do not use this parameter at this point.
-     */
     public static void main(String[] args) {
 
-        // The FileInputStream to open and read from the file that
-        // has the Tour de France data.
         FileInputStream tdfStream;
 
-        // This map maintains the relationship between the
-        // name of the biker and the object that holds the
-        // biker's data.
         Map<String, Biker> allBikers = new TreeMap<String, Biker>();
 
-        // Let us try to open the data file.
-        // The file name is hardcoded, which is not elegant.
-        // Suffices for now.
         try {
-            tdfStream = new FileInputStream("tdf.txt");
+            // couldn't access the file by just the file name
+            tdfStream = new FileInputStream("/Users/sonjinsu/Desktop/school-prjects/CSTP-1204/lab4/tdf.txt");
         } catch (FileNotFoundException e) {
-            // If, for some reason, the file was not found,
-            // then throw an exception.
-            // The file is however included in the git repo
-            // so this should not happen.
             throw new RuntimeException(e);
         }
 
-        // We have opened the file.
-        // Let us try to read data.
         try {
-            // We will use a BufferedReader to read the data from the file.
             BufferedReader tdfReader = new BufferedReader(
                     new InputStreamReader(tdfStream));
 
-            // We will read one line at a time and then split it.
-            // The format for tdf.txt is as follows:
-            // - Column 1: Year
-            // - Column 2: Average Speed
-            // - Column 3: Biker's last name
-            // - Column 4: Biker's first name
-            // tdf.txt contains real data. It is also noisy like real data.
-            // Some of the names have formatting issues but we have left
-            // things as is.
             String line;
 
-            // Read each line of the file until there is nothing left to read.
             while ((line = tdfReader.readLine()) != null) {
-
-                // Split the line into columns using the split( )
-                // method for Strings.
                 String[] columns = line.split(",");
+                String column0 = "";
+                String column1 = "";
+                String column2 = "";
+                String column3 = "";
 
-                // After the split, we should have the following (as Strings):
-                // - columns[0] contains the year,
-                // - columns[1] contains the average speed,
-                // - columns[2] contains the last name,
-                // - columns[3] contains the first name.
+                // I can not access to the list by index if it is outside of for loop
+                // Whenever I try to access to columns[1] or 2,  console says
+                //java.lang.ArrayIndexOutOfBoundsException: Index 1 out of bounds for length 1
+                //at TdFMain.main(TdFMain.java:52)
+                // but inside of for loop I can access...
+                // even columns.length is greater than 1 or 2.
 
-                // Is this biker already in our list?
-                // If so then we do not have to create a new biker.
-                // We only have to add an entry to the existing biker.
-                // We will use the full name to search allBikers.
-                String key = columns[3] + columns[2]; // this is the full name
+                for (int i = 0; i < columns.length; i++) {
+                    if (i == 0) {
+                        column0 = columns[i];
+                    }
+                    if (i == 1) {
+                        column1 = columns[i];
+                    }
+                    if (i == 2) {
+                        column2 = columns[i];
+                    }
+                    if (i == 3) {
+                        column3 = columns[i];
+                    }
+                }
+                String key = column3 + column2;
 
-                // If search is successful then add stats
                 if (allBikers.containsKey(key)) {
                     allBikers.get(key).addPerformanceStats(
-                            Integer.parseInt(columns[0]),
-                            Double.parseDouble(columns[1]));
-
-                    // System.out.println("Added data to biker "+allBikers.get(
-                    // key ).getName( ));
+                            Integer.parseInt(column0),
+                            Double.parseDouble(column1));
                 } else {
-                    // Let us now create a new Biker
-                    Biker newBiker = new Biker(columns[2], columns[3],
-                            Integer.parseInt(columns[0]),
-                            Double.parseDouble(columns[1]));
-
-                    // Now we add this biker to allBikers.
+                    Biker newBiker = new Biker(column2, column3,
+                            Integer.parseInt(column0),
+                            Double.parseDouble(column1));
                     allBikers.put(key, newBiker);
-
-                    // System.out.println("Created new biker "+newBiker.getName()
-                    // );
                 }
-
             }
             tdfReader.close();
             tdfStream.close();
         } catch (Exception e) {
-            // If, for any reason, we had some problems reading data...
             throw new RuntimeException(e);
         }
 
-        // for each entry in allBikers:
-        // print the best gain for the biker.
-        // The best gain is defined as the maximum improvement in
-        // speed between successive entries at the Tour de France.
-        // This does not have to be between consecutive years;
-        // entries with a gap (no racing) between the years is okay.
         for (Map.Entry<String, Biker> currentEntry : allBikers.entrySet()) {
             Biker currentBiker = currentEntry.getValue();
-
-            // How to print formatted strings
-            // Note the use of String.format( )
             System.out.println(String.format("%-30s: %s %s",
                     currentBiker.getName(), currentBiker.getBestGain(), currentBiker.getMedianSpeed()));
         }
 
-        // TODO: Compute the median speed across all the entries.
         double medianSpeed = 0;
-        // Your code for this should go here and should set the correct value in
-        // medianSpeed.
+
         List<Double> allSpeeds = new ArrayList<>();
         for (String bikerName : allBikers.keySet()) {
             for ( int i = 2005 ; i <= 2012; i++){
@@ -134,7 +84,10 @@ public class TdFMain {
             }
 
         }
-        // to get the median of allSpeeds Array list
+
+        // You didn't sort the array.
+        Collections.sort(allSpeeds);
+
         if(allSpeeds.size() % 2 == 1){
             medianSpeed = allSpeeds.get(allSpeeds.size()/2);
         }else{
@@ -147,13 +100,20 @@ public class TdFMain {
         System.out.println("\nThe median speed at the Tour de France is "
                 + medianSpeed);
 
-        // TODO: Compute the median of medians.
         double medianOfMedians = 0;
-        // For each biker, compute the median speed. This will result in a list
-        // of
-        // median speeds. Now determine the median of this list.
-        // Store the result in medianOfMedians.
-        // Your code should go here.
+        List<Double> allMedianSpeeds = new ArrayList<>();
+        for (String bikerName : allBikers.keySet()){
+            allMedianSpeeds.add(allBikers.get(bikerName).getMedianSpeed());
+        }
+        Collections.sort(allMedianSpeeds);
+        if(allMedianSpeeds.size() % 2 == 1){
+            medianOfMedians = allMedianSpeeds.get(allMedianSpeeds.size()/2);
+        }else{
+            medianOfMedians = (
+                    allMedianSpeeds.get(allMedianSpeeds.size()/2  ) +
+                            allMedianSpeeds.get(allMedianSpeeds.size()/2 -1 )
+            ) /2;
+        }
 
         System.out.println("\nThe median of medians at the Tour de France is "
                 + medianOfMedians);
