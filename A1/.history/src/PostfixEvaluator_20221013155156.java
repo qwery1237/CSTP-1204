@@ -13,7 +13,6 @@ import java.util.Stack;
 public class PostfixEvaluator {
 
 	private String arithmeticExpr;
-	private String errMsg = "Not valid expression!";
 
 	/**
 	 * This is the only constructor for this class.
@@ -35,7 +34,7 @@ public class PostfixEvaluator {
 	 * @throws MalformedExpressionException if the provided expression is not
 	 *                                      a valid expression in Postfix notation
 	 */
-	double eval() throws MalformedExpressionException {
+	static double eval() throws MalformedExpressionException {
 		// TODO: Implement this method.
 		// The code provided here is for illustration only, and
 		// can be deleted when you write your implementation.
@@ -46,7 +45,7 @@ public class PostfixEvaluator {
 
 		// Use the Scanner to get the elements (tokens) in the
 		// arithmetic expression.
-
+		String errMsg = "Not valid expression!";
 		Stack<Double> stack = new Stack<>();
 		Double result = 0.0;
 		Scanner scanner = new Scanner(arithmeticExpr);
