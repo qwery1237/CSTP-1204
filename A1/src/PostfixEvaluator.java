@@ -49,21 +49,28 @@ public class PostfixEvaluator {
 
 		Stack<Double> stack = new Stack<>();
 		Double result = 0.0;
+		Double num1 = 0.0;
+		Double num2 = 0.0;
 		Scanner scanner = new Scanner(arithmeticExpr);
 		Token currToken = scanner.getToken();
-		scanner.
 		while (!scanner.isEmpty()) {
 			if (currToken.isDouble()) {
 				stack.push(currToken.getValue());
 			} else {
-				Double num2 = stack.pop();
-				Double num1 = stack.pop();
+				try {
+					num2 = stack.pop();
+					num1 = stack.pop();
+				} catch (Exception e) {
+					throw new MalformedExpressionException(errMsg + " not enough number");
+				}
 				stack.push(calculate(num1, num2, currToken.getName()));
 			}
 			scanner.eatToken();
 			currToken = scanner.getToken();
 		}
 		result = stack.pop();
+		if (!stack.isEmpty())
+			throw new MalformedExpressionException(errMsg + " not enough operator");
 		// now process the token, etc.
 		// You should read the implementation of the Token class
 		// to determine what methods you can and should use.
@@ -85,6 +92,6 @@ public class PostfixEvaluator {
 			case "/":
 				return num1 / num2;
 		}
-		throw new MalformedExpressionException(errMsg);
+		throw new MalformedExpressionException(errMsg + " Invalid operator");
 	}
 }

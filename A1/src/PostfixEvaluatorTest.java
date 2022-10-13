@@ -9,14 +9,9 @@ public class PostfixEvaluatorTest {
 	// PostfixEvaluator implementation.
 
 	@Test
-	public void test() {
-		PostfixEvaluator postfixEvaluator = new PostfixEvaluator("4 2 4 / *");
-		try {
-			System.out.println(postfixEvaluator.eval());
-
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
+	public void test() throws MalformedExpressionException {
+		PostfixEvaluator postfixEvaluator = new PostfixEvaluator("8 2 4 6 6 * / /");
+		System.out.println(postfixEvaluator.eval());
 	}
 
 }
