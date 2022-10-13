@@ -51,6 +51,7 @@ public class PostfixEvaluator {
 		Double result = 0.0;
 		Scanner scanner = new Scanner(arithmeticExpr);
 		Token currToken = scanner.getToken();
+		scanner.
 		while (!scanner.isEmpty()) {
 			if (currToken.isDouble()) {
 				stack.push(currToken.getValue());
@@ -62,6 +63,7 @@ public class PostfixEvaluator {
 			scanner.eatToken();
 			currToken = scanner.getToken();
 		}
+		result = stack.pop();
 		// now process the token, etc.
 		// You should read the implementation of the Token class
 		// to determine what methods you can and should use.
@@ -69,7 +71,7 @@ public class PostfixEvaluator {
 		// It is sufficient to support the four basic operations:
 		// addition, subtraction, multiplication & division.
 
-		return 0.0;
+		return result;
 	}
 
 	Double calculate(Double num1, Double num2, String operator) throws MalformedExpressionException {

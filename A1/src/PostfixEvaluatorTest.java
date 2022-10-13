@@ -10,9 +10,10 @@ public class PostfixEvaluatorTest {
 
 	@Test
 	public void test() {
-		PostfixEvaluator postfixEvaluator = new PostfixEvaluator("2 3 / 4 /");
+		PostfixEvaluator postfixEvaluator = new PostfixEvaluator("4 2 4 / *");
 		try {
-			postfixEvaluator.eval();
+			System.out.println(postfixEvaluator.eval());
+
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
