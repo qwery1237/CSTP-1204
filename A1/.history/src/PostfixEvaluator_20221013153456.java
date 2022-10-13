@@ -48,11 +48,12 @@ public class PostfixEvaluator {
 
 		Scanner scanner = new Scanner(arithmeticExpr);
 		Token currToken = scanner.getToken();
-		while (!scanner.isEmpty()) {
-			System.out.println(currToken);
-			scanner.eatToken();
-			currToken = scanner.getToken();
-		}
+		// while (!scanner.isEmpty()) {
+		// System.out.println(1);
+		// scanner.eatToken();
+		// currToken = scanner.getToken();
+		// }
+		System.out.println(1);
 		// now process the token, etc.
 		// You should read the implementation of the Token class
 		// to determine what methods you can and should use.

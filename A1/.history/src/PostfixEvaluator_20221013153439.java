@@ -49,7 +49,7 @@ public class PostfixEvaluator {
 		Scanner scanner = new Scanner(arithmeticExpr);
 		Token currToken = scanner.getToken();
 		while (!scanner.isEmpty()) {
-			System.out.println(currToken);
+			System.out.println(1);
 			scanner.eatToken();
 			currToken = scanner.getToken();
 		}
