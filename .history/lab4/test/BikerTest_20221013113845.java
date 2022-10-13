@@ -54,7 +54,7 @@ public class BikerTest {
                     speedEntries.get(speedEntries.size() / 2 - 1)) / 2;
         }
 
-        assertEquals(34.2, avg);
+        assertEquals(34.3, avg);
         // assertEquals(34.7,avg);
     }
 }

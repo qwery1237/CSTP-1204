@@ -1,9 +1,10 @@
 import org.junit.Test;
+
 import java.awt.*;
 import java.util.*;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.*;
 
 public class BikerTest {
     @Test
