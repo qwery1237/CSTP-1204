@@ -13,7 +13,7 @@ public class LabTask2 {
     }
     public static void main(String[] args) {
         int [] arr = {1,0,2,3,0,4,5,0};
-        int [] arr2 = {1,2,3};
+        int [] arr2 = {0,1,2,3};
         arr = duplicate(arr);
         arr2 = duplicate(arr2);
 
