@@ -14,8 +14,7 @@ import java.io.InputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.net.MalformedURLException;
-import java.util.Scanner;
-import java.util.Queue;
+import java.util.*;
 
 public class ValidatorMain {
     public static void main(String[] args) throws IOException {
@@ -110,7 +109,7 @@ public class ValidatorMain {
     /**
      * Opens the given address for reading input, and reads it until the end
      * of the file, and returns the entire file contents as a big String.
-     * 
+     *
      * If address starts with http[s]:// , assumes address is a URL and tries
      * to download the data from the web. Otherwise, assumes the address
      * is a local file and tries to read it from the disk.

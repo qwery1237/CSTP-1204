@@ -1,20 +1,16 @@
-import java.util.Iterator;
-import java.util.PriorityQueue;
-import java.util.Queue;
-import java.util.Stack;
+import java.util.*;
 
 /*
  * This is the HtmlValidator class.
  * You should implement this class.
  */
 public class HtmlValidator {
-    private ValidatorMain validator;
-    private HtmlTag htmlTag;
-    private Queue<HtmlTag> aQueue;
+    public Queue<HtmlTag> aQueue;
     public HtmlValidator(){
-        Queue<HtmlTag> aQueue = new PriorityQueue();
+        aQueue = new LinkedList<>();
     }
     public HtmlValidator(Queue<HtmlTag> tags){
+        aQueue = new LinkedList<>();
         for(HtmlTag x : tags) {
             aQueue.add(x);
         }
@@ -28,11 +24,13 @@ public class HtmlValidator {
     }
     public void removeAll(String element) throws IllegalArgumentException{
         if (element == null) throw new IllegalArgumentException("Not valid tag");
-        Iterator i = aQueue.iterator();
-        String str = "";
+        Iterator<HtmlTag> i = aQueue.iterator();
+        HtmlTag openingTag = new HtmlTag(element,true);
+        HtmlTag closingTag = new HtmlTag(element,false);
+        HtmlTag tag;
         while (i.hasNext()) {
-            str = i.next().toString();
-            if (str.equals(element)) {
+            tag = i.next();
+            if (tag.matches(openingTag)||tag.matches(closingTag)) {
                 i.remove();
             }
         }
@@ -42,28 +40,49 @@ public class HtmlValidator {
         String text = "";
         Stack stack = new Stack();
         int num = 0;
-        Iterator i = aQueue.iterator();
+        Iterator<HtmlTag> i = aQueue.iterator();
         while (i.hasNext()) {
-            if (i.next().toString().charAt(1) == '!') {
-                text += "    ".repeat(num);
-                text += i.next().toString();
-                text += "\n";
+            HtmlTag crrTag = i.next();
+            if (crrTag.isSelfClosing()) {
+                if (!crrTag.isOpenTag()) {
+                    text = text + "ERROR unexpected tag: " + crrTag + "\n";
+                }else {
+                    text += "    ".repeat(num);
+                    text += crrTag.toString();
+                    text += "\n";
+                }
             }
             else {
-
+                if(crrTag.isOpenTag()) {
+                    text += "    ".repeat(num);
+                    text += crrTag.toString();
+                    text += "\n";
+                    stack.push(crrTag);
+                    num++;
+                } else {
+                    if (stack.isEmpty()) {
+                        text = text + "ERROR unexpected tag: " + crrTag + "\n";
+                    }else {
+                        if (crrTag.matches((HtmlTag) stack.peek())) {
+                            num--;
+                            stack.pop();
+                            text += "    ".repeat(num);
+                            text += crrTag.toString();
+                            text += "\n";
+                        }else {
+                            text = text + "ERROR unexpected tag: " + crrTag + "\n";
+                        }
+                    }
+                }
             }
-            HtmlTag tag = (HtmlTag) i.next();
-            if (tag.isOpenTag()) {
-                stack.push(tag);
-                num++;
-            } else {
 
-            }
-            text += "    ".repeat(num);
-            text += i.next().toString();
-            text += "\n";
 
         }
+        while (!stack.isEmpty()) {
+            text = text + "ERROR unclosed tag: " + stack.pop() + "\n";
+        }
+        System.out.println(text);
+
 
     }
 

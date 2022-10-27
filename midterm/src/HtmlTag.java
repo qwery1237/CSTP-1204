@@ -20,7 +20,7 @@ public class HtmlTag {
     /**
      * Constructs an HTML "opening" tag with the given element (e.g. "table").
      * Throws a NullPointerException if element is null.
-     * 
+     *
      * @param element that represents an opening HTML tag such as
      *                <p>
      *                or
@@ -36,7 +36,7 @@ public class HtmlTag {
      * Self-closing tags like <br />
      * are considered to be "opening" tags,
      * and return true from the isOpenTag method.
-     * 
+     *
      * @param element   represents an HTML tag such as
      *                  <p>
      *                  or
@@ -57,7 +57,7 @@ public class HtmlTag {
      * to make <em>deep copies</em> of HtmlTags. Use with
      * case because cloning imposes performance and memory
      * overheads.
-     * 
+     *
      * @returns a reference to an HtmlTag object that is a clone of
      *          this object.
      */
@@ -68,7 +68,7 @@ public class HtmlTag {
     /**
      * Returns true if this tag has the same element and type as the given other
      * tag.
-     * 
+     *
      * @param o is the object to compare this HtmlTag to
      * @returns true if this HtmlTag is equal to o and false otherwise
      */
@@ -83,7 +83,7 @@ public class HtmlTag {
 
     /**
      * Returns this HTML tag's element, such as "table" or "p".
-     * 
+     *
      * @param none
      * @returns a string representation of the tag represented by this HtmlTag
      *          withot the < > brackets
@@ -97,7 +97,7 @@ public class HtmlTag {
      * if it is a closing tag.
      * Self-closing tags like <br />
      * are considered to be "opening" tags.
-     * 
+     *
      * @param none
      * @returns true if this HtmlTag is an opening tag or a self-closing tag, and
      *          false otherwise
@@ -110,7 +110,7 @@ public class HtmlTag {
      * Returns true if the given other tag is non-null and matches this tag;
      * that is, if they have the same element but opposite types,
      * such as <body> and </body>.
-     * 
+     *
      * @param other is an HtmlTag to compare this HtmlTag with
      * @returns true if this HtmlTag "matches" the other HtmlTag and false
      *          otherwise.
@@ -124,7 +124,7 @@ public class HtmlTag {
     /**
      * Returns true if this tag does not requires a matching closing tag,
      * which is the case for certain elements such as br and img.
-     * 
+     *
      * @param none
      * @returns true if this HtmlTag is self-closing (e.g., <br />
      *          ) and false otherwise
@@ -137,7 +137,7 @@ public class HtmlTag {
      * Returns a string representation of this HTML tag, such as "
      * </table>
      * ".
-     * 
+     *
      * @param none
      * @returns a string representation of this HtmlTag
      *          including the < > brackets
@@ -164,7 +164,7 @@ public class HtmlTag {
      * " and converts it into an HtmlTag,
      * which is returned.
      * Throws a NullPointerException if tagText is null.
-     * 
+     *
      * @param tagText is a string that represents an HtmlTag
      *                including < > brackets
      * @return an HtmlTag that represents the tag given as a String
@@ -183,7 +183,7 @@ public class HtmlTag {
      * Takes a string and converts it into a list of HTML tokens
      * represented using a list of HtmlTag objects.
      * The input string represents the HTML text.
-     * 
+     *
      * @param text is the input HTML, and text != null
      * @return a list of HtmlTag objects obtained from the input HTML
      */
@@ -207,7 +207,7 @@ public class HtmlTag {
     /**
      * This method grabs the next HTML tag from a string buffer and
      * returns an HtmlTag object for the tag found in the buffer
-     * 
+     *
      * @param buf represents HTML text that needs to be processed;
      *            buf is modified in this method when a tag is found
      *            and the tag and associated text are removed from buf.
