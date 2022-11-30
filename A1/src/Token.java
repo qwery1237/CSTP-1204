@@ -1,7 +1,7 @@
 /** A Token holds either a String name or a Double value. It is used by
  * the Scanner while reading the input.
  *
- * @see Scanner
+ * @see
  */
 
 public class Token {
