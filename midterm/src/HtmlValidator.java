@@ -55,7 +55,7 @@ public class HtmlValidator {
             else {
                 if(crrTag.isOpenTag()) {
                     text += "    ".repeat(num);
-                    text += crrTag.toString();
+                    text += crrTag.toString();c
                     text += "\n";
                     stack.push(crrTag);
                     num++;
